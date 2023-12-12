@@ -1,1 +1,1 @@
-{"version":3,"sourceRoot":"","sources":["../sass/style.scss","../sass/_colors.scss"],"names":[],"mappings":"AAGA,GACI,MCFI,QDIR,IACI,iBCPC,QDQD,+BACA,QACI,YACA,WAIR,OACI,iBChBC,QDmBL,KACI,iBCnBK,QDoBL","file":"style.min.css"}
+{"version":3,"sourceRoot":"","sources":["../sass/style.scss","../sass/_colors.scss"],"names":[],"mappings":"AAGA,GACI,MCFI,QDIR,IACI,iBCPC,QDQD,+BACA,QACI,YACA,WAIR,OACI,iBChBC,QDmBL,KACI,iBCnBK,QDoBL,aAGJ,EACI","file":"style.min.css"}

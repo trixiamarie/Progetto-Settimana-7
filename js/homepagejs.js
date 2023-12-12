@@ -61,7 +61,7 @@ function createProdCard(product) {
 
     let priceBody = document.createElement("p");
     priceBody.classList.add("p-2", "m-2", "text-center", "bg-dark-subtle");
-    priceBody.innerText = "Prezzo: " + "$" + x.price;
+    priceBody.innerText = "Prezzo: " + "$" + x.price + "/Kg";
     priceBody.style.fontWeight = "bold";
 
     let btnEdit = document.createElement("button");
@@ -116,7 +116,6 @@ async function editProduct(product) {
       .then((response) => response.json())
       .then((data) => {
         console.log(data);
-  
         updateCard(product, updatedProduct);
       })
       .catch((error) => {
