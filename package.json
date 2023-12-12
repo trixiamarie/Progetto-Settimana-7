@@ -1,0 +1,11 @@
+{
+  "name": "progetto-settimana-7",
+  "version": "1.0.0",
+  "description": "Progetto Settimanale",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Trixia Lorenzana",
+  "license": "ISC"
+}

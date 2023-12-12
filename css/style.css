@@ -1,0 +1,21 @@
+h1 {
+  color: #75665a;
+}
+
+nav {
+  background-color: #d4cdc7;
+  box-shadow: 5px 5px 5px #b3a69c;
+}
+nav img {
+  height: 2rem;
+  width: auto;
+}
+
+footer {
+  background-color: #d4cdc7;
+}
+
+main {
+  background-color: #eae7e4;
+  padding: 5rem;
+}/*# sourceMappingURL=style.css.map */

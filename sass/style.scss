@@ -1,0 +1,23 @@
+//test
+@import '_colors';
+
+h1{
+    color: $title;
+}
+nav{
+    background-color: $bg;
+    box-shadow: 5px 5px 5px $shadow;
+    img{
+        height: 2rem;
+        width: auto;
+    }
+}
+
+footer{
+    background-color: $bg;
+}
+
+main{
+    background-color: $bgmain;
+    padding: 5rem;
+}
