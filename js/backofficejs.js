@@ -185,6 +185,7 @@ document.getElementById("submitBtn").addEventListener("click", async function ()
     await addProduct();
   });
 
+  //AGGIUNGI PRODOTTI
 async function addProduct() {
   let productName = document.getElementById("productName").value;
   let productDescription = document.getElementById("productDescription").value;
@@ -217,6 +218,7 @@ async function addProduct() {
     });
 }
 
+//RESETTA FORM
 let resetBtn = document.querySelector("#resetBtn");
 resetBtn.addEventListener("click", function () {
   let userConfirmed = confirm("Sei sicuro di voler cancellare il contenuto del form?");
@@ -255,9 +257,30 @@ function createList(x) {
     let btnMod = document.createElement('button');
     btnMod.innerHTML=`<i class="bi bi-pencil-square"></i>`;
     btnMod.classList.add('btn', 'btn-primary');
+    btnMod.setAttribute("data-bs-toggle", "modal");
+    btnMod.setAttribute("data-bs-target", "#exampleModal");
     btnMod.addEventListener('click', function () {
-      editLi(y);
-    })
+      let existingBtn = document.getElementById("existingBtn");
+      if (existingBtn) {
+        existingBtn.remove();
+      }
+        let saveBtn = document.createElement("button");
+        saveBtn.innerText = "Invia";
+        saveBtn.classList.add("btn", "btn-outline-success");
+        saveBtn.id = "existingBtn";
+        let modalContainer = document.querySelector(
+          "div.modal-body div.container"
+        );
+        modalContainer.appendChild(saveBtn);
+        saveBtn.addEventListener("click", function () {
+          editLi(y);
+          let success= document.createElement('p');
+          success.innerText="Dati Inviati"
+          modalContainer.appendChild(success);
+        });
+      }
+    )
+
     let btnCanc = document.createElement('button');
     btnCanc.innerHTML=`<i class="bi bi-trash3"></i>`;
     btnCanc.classList.add('btn', 'btn-danger');
@@ -280,16 +303,18 @@ function createList(x) {
 
 //MODIFICA PRODOTTI
 function editLi(x) {
-  let newName = prompt("Inserisci il nuovo nome del prodotto:", x.name);
-  let newDescription = prompt("Inserisci la nuova descrizione del prodotto:", x.description);
-  let newBrand = prompt("Inserisci la nuova marca del prodotto:", x.brand);
-  let newPrice = prompt("Inserisci il nuovo prezzo del prodotto:", x.price);
+  let newName = document.getElementById("productName").value;
+  let newDescription = document.getElementById("productDescription").value;
+  let newBrand = document.getElementById("productBrand").value;
+  let newPrice = document.getElementById("productPrice").value;
+  let newproductImageUrl = document.getElementById("productImageUrl").value;
 
   let updatedProduct = {
     name: newName,
     description: newDescription,
     brand: newBrand,
     price: parseFloat(newPrice),
+    imageUrl: newproductImageUrl
   };
 
   fetch(`${api}/${x._id}`, {
@@ -315,7 +340,6 @@ function editLi(x) {
       createList([newProduct]);
   }
 }
-
 
 //CANCELLA PRODOTTI
 function cancLi(x) {

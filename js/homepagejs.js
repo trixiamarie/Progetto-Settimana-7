@@ -15,13 +15,13 @@ fetch(api, {
   })
   .catch((error) => {
     console.error("Errore nella richiesta:", error);
-});
+  });
 
- //CREA LE CARD DEI PRODOTTI AUTOMATICAMENTE
+//CREA LE CARD DEI PRODOTTI AUTOMATICAMENTE
 function createProdCard(product) {
-    let pContainer = document.querySelector('div.container .card-group');
-    console.log(pContainer);
-    let row = document.createElement("div");
+  let pContainer = document.querySelector("div.container .card-group");
+  console.log(pContainer);
+  let row = document.createElement("div");
   row.classList.add("row", "justify-content-between");
   pContainer.appendChild(row);
 
@@ -30,7 +30,13 @@ function createProdCard(product) {
 
   product.forEach((x) => {
     let divCard = document.createElement("div");
-    divCard.classList.add(`col-${columnsPerCard}`,"card","mb-3","mx-2","justify-content-between","shadow-sm"
+    divCard.classList.add(
+      `col-${columnsPerCard}`,
+      "card",
+      "mb-3",
+      "mx-2",
+      "justify-content-between",
+      "shadow-sm"
     );
 
     divCard.style.width = "25rem";
@@ -67,16 +73,37 @@ function createProdCard(product) {
     let btnEdit = document.createElement("button");
     btnEdit.classList.add("btnEdit", "btn", "btn-outline-info");
     btnEdit.innerText = "Edit";
-
+    btnEdit.setAttribute("data-bs-toggle", "modal");
+    btnEdit.setAttribute("data-bs-target", "#exampleModal");
     btnEdit.addEventListener("click", function () {
-        editProduct(x);
-    });
+      let existingBtn = document.getElementById("existingBtn");
+      if (existingBtn) {
+        existingBtn.remove();
+      }
+        let saveBtn = document.createElement("button");
+        saveBtn.innerText = "Invia";
+        saveBtn.classList.add("btn", "btn-outline-success");
+        saveBtn.id = "existingBtn";
+        let modalContainer = document.querySelector(
+          "div.modal-body div.container"
+        );
+        modalContainer.appendChild(saveBtn);
+        saveBtn.addEventListener("click", function () {
+          editProduct(x);
+        });
+      }
+    );
 
     let btnInfo = document.createElement("button");
     btnInfo.classList.add("btn", "btn-outline-success", "m-2");
     btnInfo.innerHTML = `<i class="bi bi-info-circle"></i>`;
 
-    
+    // btnInfo.setAttribute("data-bs-toggle", "modal");
+    // btnInfo.setAttribute("data-bs-target", "#exampleModal");
+    btnInfo.addEventListener("click", function () {
+        infoProduct(x);
+    });
+
     divBody.appendChild(h5Body);
     divBody.appendChild(pBody1);
     divBody.appendChild(pBody);
@@ -90,43 +117,58 @@ function createProdCard(product) {
   });
 }
 
-
 //MODIFICA LE CARD
 async function editProduct(product) {
-    let newName = prompt("Inserisci il nuovo nome del prodotto:", product.name);
-    let newDescription = prompt("Inserisci la nuova descrizione del prodotto:", product.description);
-    let newBrand = prompt("Inserisci la nuova marca del prodotto:", product.brand);
-    let newPrice = prompt("Inserisci il nuovo prezzo del prodotto:", product.price);
-  
-    let updatedProduct = {
-      name: newName,
-      description: newDescription,
-      brand: newBrand,
-      price: parseFloat(newPrice),
-    };
-  
-    await fetch(`${api}/${product._id}`, {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${key}`,
-      },
-      body: JSON.stringify(updatedProduct),
+  let newName = document.getElementById("productName").value;
+  let newDescription = document.getElementById("productDescription").value;
+  let newBrand = document.getElementById("productBrand").value;
+  let newPrice = document.getElementById("productPrice").value;
+  let newproductImageUrl = document.getElementById("productImageUrl").value;
+
+  let updatedProduct = {
+    name: newName,
+    description: newDescription,
+    brand: newBrand,
+    price: parseFloat(newPrice),
+    imageUrl: newproductImageUrl,
+  };
+
+  await fetch(`${api}/${product._id}`, {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${key}`,
+    },
+    body: JSON.stringify(updatedProduct),
+  })
+    .then((response) => response.json())
+    .then((data) => {
+      console.log(data);
+      updateCard(product, updatedProduct);
     })
-      .then((response) => response.json())
-      .then((data) => {
-        console.log(data);
-        updateCard(product, updatedProduct);
-      })
-      .catch((error) => {
-        console.error("Errore nella richiesta di modifica:", error);
+    .catch((error) => {
+      console.error("Errore nella richiesta di modifica:", error);
     });
 
-    function updateCard(oldProduct, newProduct) {
-        let cardElement = document.getElementById(oldProduct._id);
-        cardElement.remove();
-        createProdCard([newProduct]);
-    }
-      
+  function updateCard(oldProduct, newProduct) {
+    let cardElement = document.getElementById(oldProduct._id);
+    cardElement.remove();
+    createProdCard([newProduct]);
   }
-  
+}
+
+//INFO CARD MODAL
+function infoProduct(product) {
+  //VALORI NUTRIZIONALI
+  // let title = document.querySelector('.modal h5.modal-title');
+  // title.innerText = product.name;
+  // let modalBody = document.querySelector('.modal div.modal-body');
+  // if (modalBody.children.length === 0) {
+  // let imgBody = document.createElement('img');
+  // modalBody.appendChild(imgBody);
+  // // imgBody.src = product.imageUrl;
+  // let imagePath = "./assets/img/valorinutrizionali.jpg";
+  // imgBody.src = imagePath;
+  // imgBody.style.width = "auto";
+  // imgBody.style.height = "40rem";}
+}

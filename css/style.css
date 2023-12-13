@@ -10,6 +10,13 @@ nav img {
   height: 2rem;
   width: auto;
 }
+nav ul li a {
+  color: white;
+}
+nav ul li:hover {
+  background-color: #eae7e4;
+  font-weight: bold;
+}
 
 footer {
   background-color: #d4cdc7;

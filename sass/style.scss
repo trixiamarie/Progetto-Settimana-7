@@ -1,27 +1,39 @@
 //test
-@import '_colors';
+@import "_colors";
 
-h1{
-    color: $title;
+h1 {
+  color: $title;
 }
-nav{
-    background-color: $bg;
-    box-shadow: 5px 5px 5px $shadow;
-    img{
-        height: 2rem;
-        width: auto;
+nav {
+  background-color: $bg;
+  box-shadow: 5px 5px 5px $shadow;
+  img {
+    height: 2rem;
+    width: auto;
+  }
+  ul {
+    li {
+      a {
+        color: white;
+      }
+      &:hover {
+        background-color: $bgmain;
+
+        font-weight: bold;
+      }
     }
+  }
 }
 
-footer{
-    background-color: $bg;
+footer {
+  background-color: $bg;
 }
 
-main{
-    background-color: $bgmain;
-    padding: 5rem;
+main {
+  background-color: $bgmain;
+  padding: 5rem;
 }
 
-p{
-    margin: 0;
+p {
+  margin: 0;
 }
