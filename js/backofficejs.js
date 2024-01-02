@@ -264,6 +264,11 @@ function createList(x) {
       if (existingBtn) {
         existingBtn.remove();
       }
+        document.querySelector('#productName').value = y.name;
+        document.querySelector('#productDescription').value = y.description;
+        document.querySelector('#productBrand').value = y.brand;
+        document.querySelector('#productPrice').value = y.price;
+        document.querySelector('#productImageUrl').value = y.imageUrl;
         let saveBtn = document.createElement("button");
         saveBtn.innerText = "Invia";
         saveBtn.classList.add("btn", "btn-outline-success");

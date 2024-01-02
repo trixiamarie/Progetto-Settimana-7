@@ -80,6 +80,11 @@ function createProdCard(product) {
       if (existingBtn) {
         existingBtn.remove();
       }
+      document.querySelector('#productName').value = x.name;
+        document.querySelector('#productDescription').value = x.description;
+        document.querySelector('#productBrand').value = x.brand;
+        document.querySelector('#productPrice').value = x.price;
+        document.querySelector('#productImageUrl').value = x.imageUrl;
         let saveBtn = document.createElement("button");
         saveBtn.innerText = "Invia";
         saveBtn.classList.add("btn", "btn-outline-success");
@@ -89,27 +94,33 @@ function createProdCard(product) {
         );
         modalContainer.appendChild(saveBtn);
         saveBtn.addEventListener("click", function () {
+          
           editProduct(x);
         });
       }
     );
 
+    let aInfo = document.createElement("a");
     let btnInfo = document.createElement("button");
     btnInfo.classList.add("btn", "btn-outline-success", "m-2");
     btnInfo.innerHTML = `<i class="bi bi-info-circle"></i>`;
-
-    // btnInfo.setAttribute("data-bs-toggle", "modal");
-    // btnInfo.setAttribute("data-bs-target", "#exampleModal");
+    btnInfo.setAttribute("data-id", x._id); 
     btnInfo.addEventListener("click", function () {
-        infoProduct(x);
-    });
+    let productId = btnInfo.getAttribute("data-id");  
+    console.log("Product ID:", productId);
+    const newUrl = `./detailpage.html?id=${productId}`;
+  console.log("New URL:", newUrl);
+  window.location.href = newUrl;
+  getPhotoById(productId);
+});
 
     divBody.appendChild(h5Body);
     divBody.appendChild(pBody1);
     divBody.appendChild(pBody);
     divBody.appendChild(divPDA);
     divPDA.appendChild(priceBody);
-    divPDA.appendChild(btnInfo);
+    divPDA.appendChild(aInfo);
+    aInfo.appendChild(btnInfo);
     divPDA.appendChild(btnEdit);
     divCard.appendChild(pImg);
     divCard.appendChild(divBody);
@@ -171,4 +182,16 @@ function infoProduct(product) {
   // imgBody.src = imagePath;
   // imgBody.style.width = "auto";
   // imgBody.style.height = "40rem";}
+}
+function getPhotoById(id) {
+  let url = `https://striveschool-api.herokuapp.com/api/product/${id}`;
+  fetch(url, {
+      method: 'GET', 
+      headers: { Authorization: `Bearer ${key}`, }
+  })
+  .then(response => response.json())
+  .then(json => {
+      console.log(json)
+  })
+  .catch(error => console.log(error))
 }
